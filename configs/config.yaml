@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  mode: debug
+  read_timeout: 30
+  write_timeout: 30
+
+log:
+  level: info
+  format: console
+  output: stdout
+  file_path: ./logs/app.log
+  max_size: 100
+  max_backups: 10
+  max_age: 30
+
+database:
+  driver: mysql
+  host: localhost
+  port: 3306
+  user: root
+  password: ""
+  dbname: mycc
+  max_open_conns: 100
+  max_idle_conns: 10
+  conn_max_lifetime: 3600

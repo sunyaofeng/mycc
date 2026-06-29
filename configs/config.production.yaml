@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  mode: release
+  read_timeout: 30
+  write_timeout: 30
+
+log:
+  level: info
+  format: json
+  output: file
+  file_path: ./logs/app.log
+
+database:
+  host: prod-db.example.com
+  port: 3306
+  user: mycc
+  password: "${DB_PASSWORD}"
+  dbname: mycc_prod

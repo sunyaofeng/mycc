@@ -1,0 +1,17 @@
+server:
+  port: 8080
+  mode: debug
+  read_timeout: 30
+  write_timeout: 30
+
+log:
+  level: debug
+  format: console
+  output: stdout
+
+database:
+  host: localhost
+  port: 3306
+  user: root
+  password: ""
+  dbname: mycc_dev
