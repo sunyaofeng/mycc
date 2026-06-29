@@ -3,22 +3,39 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 
+	"mycc/internal/handler"
 	"mycc/internal/middleware"
 )
 
-// Setup 设置路由
-func Setup() *gin.Engine {
-	// 创建路由实例
-	r := gin.New()
+// Router 路由结构体
+type Router struct {
+	engine       *gin.Engine
+	dateHandler  *handler.DateHandler
+}
+
+// NewRouter 创建路由实例（Wire 注入）
+func NewRouter(dateHandler *handler.DateHandler) *Router {
+	r := &Router{
+		engine:      gin.New(),
+		dateHandler: dateHandler,
+	}
 
 	// 注册全局中间件
-	r.Use(middleware.Logger())
-	r.Use(middleware.Recovery())
-	r.Use(middleware.CORS())
-	r.Use(middleware.RequestID())
+	r.engine.Use(middleware.Logger())
+	r.engine.Use(middleware.Recovery())
+	r.engine.Use(middleware.CORS())
+	r.engine.Use(middleware.RequestID())
 
+	// 注册路由
+	r.registerRoutes()
+
+	return r
+}
+
+// registerRoutes 注册所有路由
+func (r *Router) registerRoutes() {
 	// 健康检查
-	r.GET("/health", func(c *gin.Context) {
+	r.engine.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"status": "ok",
 			"time":   "",
@@ -26,7 +43,7 @@ func Setup() *gin.Engine {
 	})
 
 	// API 路由组
-	api := r.Group("/api")
+	api := r.engine.Group("/api")
 	{
 		// v1 版本
 		v1 := api.Group("/v1")
@@ -36,8 +53,19 @@ func Setup() *gin.Engine {
 					"message": "pong",
 				})
 			})
+
+			// 日期接口
+			v1.GET("/date", r.dateHandler.GetCurrentDate)
 		}
 	}
+}
 
-	return r
+// Engine 获取 Gin 引擎实例
+func (r *Router) Engine() *gin.Engine {
+	return r.engine
+}
+
+// Run 启动服务器
+func (r *Router) Run(addr string) error {
+	return r.engine.Run(addr)
 }

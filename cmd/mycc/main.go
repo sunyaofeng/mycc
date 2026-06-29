@@ -10,7 +10,6 @@ import (
 	"mycc/internal/config"
 	"mycc/internal/env"
 	"mycc/internal/logger"
-	"mycc/internal/router"
 )
 
 func main() {
@@ -45,8 +44,8 @@ func main() {
 	// 设置 Gin 模式
 	gin.SetMode(cfg.Server.Mode)
 
-	// 设置路由
-	r := router.Setup()
+	// 使用 Wire 生成的依赖注入代码创建路由
+	r := InitializeRouter()
 
 	// 启动服务器
 	addr := fmt.Sprintf(":%d", cfg.Server.Port)
