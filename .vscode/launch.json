@@ -7,6 +7,7 @@
       "request": "launch",
       "mode": "auto",
       "program": "${workspaceFolder}/cmd/mycc",
+      "cwd": "${workspaceFolder}",
       "env": {
         "MYCC_ENV": "development"
       },
@@ -20,6 +21,7 @@
       "request": "launch",
       "mode": "auto",
       "program": "${workspaceFolder}/cmd/mycc",
+      "cwd": "${workspaceFolder}",
       "env": {
         "MYCC_ENV": "production"
       },
@@ -33,6 +35,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceFolder}/cmd/mycc",
+      "cwd": "${workspaceFolder}",
       "env": {
         "MYCC_ENV": "development"
       },
