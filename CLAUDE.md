@@ -61,6 +61,22 @@ wire ./cmd/mycc
 - `MYCC_SERVER_PORT` - 服务器端口，覆盖配置文件中的端口
 - `MYCC_LOG_LEVEL` - 日志级别：`debug`、`info`、`warn`、`error`
 
+### 首次克隆后的初始化
+
+```bash
+# 1. 下载依赖
+go mod tidy
+
+# 2. 安装 Wire 工具（如未安装）
+go install github.com/google/wire/cmd/wire@latest
+
+# 3. 生成 Wire 依赖注入代码（wire_gen.go 被 .gitignore 忽略，需手动生成）
+wire ./cmd/mycc
+
+# 4. 验证编译
+go build ./cmd/mycc
+```
+
 ## 项目架构
 
 ### 目录结构
