@@ -6,7 +6,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "${workspaceFolder}/cmd/mycc/main.go",
+      "program": "${workspaceFolder}/cmd/mycc",
       "env": {
         "MYCC_ENV": "development"
       },
@@ -19,7 +19,7 @@
       "type": "go",
       "request": "launch",
       "mode": "auto",
-      "program": "${workspaceFolder}/cmd/mycc/main.go",
+      "program": "${workspaceFolder}/cmd/mycc",
       "env": {
         "MYCC_ENV": "production"
       },
@@ -32,7 +32,7 @@
       "type": "go",
       "request": "launch",
       "mode": "debug",
-      "program": "${workspaceFolder}/cmd/mycc/main.go",
+      "program": "${workspaceFolder}/cmd/mycc",
       "env": {
         "MYCC_ENV": "development"
       },
