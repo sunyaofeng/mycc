@@ -14,6 +14,7 @@ import (
 func InitializeRouter() *router.Router {
 	wire.Build(
 		handler.NewDateHandler,
+		handler.NewHealthHandler,
 		router.NewRouter,
 	)
 	return &router.Router{}

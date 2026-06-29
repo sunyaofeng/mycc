@@ -11,13 +11,15 @@ import (
 type Router struct {
 	engine       *gin.Engine
 	dateHandler  *handler.DateHandler
+	healthHandler *handler.HealthHandler
 }
 
 // NewRouter 创建路由实例（Wire 注入）
-func NewRouter(dateHandler *handler.DateHandler) *Router {
+func NewRouter(dateHandler *handler.DateHandler, healthHandler *handler.HealthHandler) *Router {
 	r := &Router{
-		engine:      gin.New(),
-		dateHandler: dateHandler,
+		engine:       gin.New(),
+		dateHandler:  dateHandler,
+		healthHandler: healthHandler,
 	}
 
 	// 注册全局中间件
@@ -35,12 +37,7 @@ func NewRouter(dateHandler *handler.DateHandler) *Router {
 // registerRoutes 注册所有路由
 func (r *Router) registerRoutes() {
 	// 健康检查
-	r.engine.GET("/health", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"status": "ok",
-			"time":   "",
-		})
-	})
+	r.engine.GET("/health", r.healthHandler.GetHealth)
 
 	// API 路由组
 	api := r.engine.Group("/api")

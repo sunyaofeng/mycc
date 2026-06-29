@@ -11,6 +11,7 @@ import (
 var AppSet = wire.NewSet(
 	// 处理器
 	handler.NewDateHandler,
+	handler.NewHealthHandler,
 
 	// 路由
 	router.NewRouter,
