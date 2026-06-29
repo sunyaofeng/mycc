@@ -92,7 +92,6 @@ mycc/
 │   ├── config.yaml         # 基础配置
 │   ├── config.development.yaml  # 开发环境
 │   └── config.production.yaml   # 生产环境
-├── .vscode/                # VS Code 调试配置
 ├── go.mod
 └── go.sum
 ```
@@ -195,13 +194,46 @@ go test -cover ./...
 
 ## VS Code 调试
 
-项目已配置 `.vscode/launch.json`，按 `F5` 即可启动调试：
+`.vscode/` 目录已被 `.gitignore` 忽略，需自行创建 `.vscode/launch.json`：
 
-- **Launch mycc (development)** — 开发环境运行
-- **Launch mycc (debug mode)** — 带断点调试
-- **Launch mycc (production)** — 生产环境运行
-- **Test Current Package** — 测试当前包
-- **Test All** — 运行全部测试
+```json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch mycc (development)",
+      "type": "go",
+      "request": "launch",
+      "mode": "auto",
+      "program": "${workspaceFolder}/cmd/mycc",
+      "cwd": "${workspaceFolder}",
+      "env": { "MYCC_ENV": "development" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Launch mycc (debug mode)",
+      "type": "go",
+      "request": "launch",
+      "mode": "debug",
+      "program": "${workspaceFolder}/cmd/mycc",
+      "cwd": "${workspaceFolder}",
+      "env": { "MYCC_ENV": "development" },
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Test All",
+      "type": "go",
+      "request": "launch",
+      "mode": "test",
+      "program": "${workspaceFolder}",
+      "args": ["./..."],
+      "console": "integratedTerminal"
+    }
+  ]
+}
+```
+
+推荐扩展：`golang.go`、`eamodio.gitlens`、`mhutchie.git-graph`、`redhat.vscode-yaml`
 
 ## 技术栈
 
