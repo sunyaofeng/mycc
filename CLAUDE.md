@@ -8,7 +8,20 @@ mycc 是一个基于 Gin 框架的 Go Web 服务基础框架，使用 Go 1.25.5 
 
 ## 常用命令
 
-### 开发命令
+### VS Code 调试启动（推荐）
+
+项目已配置 `.vscode/launch.json`，支持通过 VS Code 调试面板启动：
+
+- **Launch mycc (development)** — 开发环境运行（`MYCC_ENV=development`）
+- **Launch mycc (production)** — 生产环境运行（`MYCC_ENV=production`）
+- **Launch mycc (debug mode)** — 带调试器运行（可断点调试）
+- **Test Current Package** — 运行当前文件所在包的测试
+- **Test Current File** — 运行当前文件中的测试（需选中测试函数名）
+- **Test All** — 运行所有测试
+
+快捷键：`Ctrl+Shift+D` 打开调试面板，选择配置后按 `F5` 启动。
+
+### 命令行
 
 ```bash
 # 下载依赖
@@ -37,6 +50,9 @@ go fmt ./...
 
 # 代码检查
 go vet ./...
+
+# 生成 Wire 依赖注入代码
+wire ./cmd/mycc
 ```
 
 ### 环境变量
@@ -103,3 +119,5 @@ mycc/
 - 新增模块在 `internal/` 下创建子目录
 - 路由在 `internal/router/` 中注册，按版本分组（`/api/v1/`）
 - 配置项在 `Config` 结构体中添加，并在对应配置文件设置默认值
+- 新增 Handler 后需在 `cmd/mycc/wire.go` 中添加 Provider，然后运行 `wire ./cmd/mycc` 重新生成注入代码
+- VS Code 用户可直接使用调试面板启动服务，无需手动输入命令
